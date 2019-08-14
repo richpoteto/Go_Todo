@@ -1,6 +1,8 @@
 package app
 
 import (
+	"github.com/denisacostaq/todolist-go/app/models"
+	gorm "github.com/revel/modules/orm/gorm/app"
 	"github.com/revel/revel"
 )
 
@@ -11,6 +13,11 @@ var (
 	// BuildTime revel app build-time (ldflags)
 	BuildTime string
 )
+
+func initializeDB() {
+	gorm.InitDB()
+	gorm.DB.AutoMigrate(&models.Task{})
+}
 
 func init() {
 	// Filters is the default set of global filters.
@@ -34,7 +41,7 @@ func init() {
 	// revel.DevMode and revel.RunMode only work inside of OnAppStart. See Example Startup Script
 	// ( order dependent )
 	// revel.OnAppStart(ExampleStartupScript)
-	// revel.OnAppStart(InitDB)
+	revel.OnAppStart(initializeDB)
 	// revel.OnAppStart(FillCache)
 }
 
