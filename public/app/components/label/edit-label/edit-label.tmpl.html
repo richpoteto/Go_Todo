@@ -1,0 +1,18 @@
+<div class="container">
+    <h3>{{headerText}}</h3>
+    <form novalidate>
+        <div ng-if="editing"class="form-group">
+            <label for="id">ID:</label>
+            <input type="text" class="form-control" id="id" ng-model="label.id" disabled>
+        </div>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" ng-model="label.name">
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" rows="4" ng-model="label.description"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success" ng-click="save()">Save</button>
+    </form>
+</div>
