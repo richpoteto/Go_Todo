@@ -18,8 +18,6 @@ angular.module('utilsModule', []).service('utils', ['$location', function ($loca
 angular.module('myApp', [
   'ngRoute',
   'ngAnimate',
-  'myApp.view1',
-  'myApp.view2',
   'myApp.version',
   'labelModule',
   'taskModule',
@@ -47,5 +45,5 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
       .when('/task', {
           template: '<edit-task></edit-task>',
       })
-      .otherwise({redirectTo: '/view1'});
+      .otherwise({redirectTo: '/tasks'});
 }]);
