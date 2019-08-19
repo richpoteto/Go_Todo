@@ -9,6 +9,18 @@ module:testrunner
 
 GET     /                                       App.Index
 
+GET     /api/v1.0/tasks                         Task.List
+POST    /api/v1.0/tasks                         Task.Create
+GET     /api/v1.0/tasks/:id                     Task.Retrieve
+PUT     /api/v1.0/tasks/:id                     Task.Update
+DELETE  /api/v1.0/tasks/:id                     Task.Delete
+
+GET     /api/v1.0/labels                        Label.List
+POST    /api/v1.0/labels                        Label.Create
+GET     /api/v1.0/labels/:id                    Label.Retrieve
+PUT     /api/v1.0/labels/:id                    Label.Update
+DELETE  /api/v1.0/labels/:id                    Label.Delete
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
