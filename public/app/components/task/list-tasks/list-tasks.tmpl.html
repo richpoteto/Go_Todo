@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="container">
+        <div class="col-md-12 text-right">
+            <div class="button-container">
+                <a ng-href="#!/task"><button class="btn btn-success btn-sm" ng-click="">New</button></a>
+            </div>
+        </div>
+        <h3>Basic Table</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="col-lg-2">ID</th>
+                    <th class="col-lg-3">Name</th>
+                    <th class="col-lg-5">Description</th>
+                    <th class="col-lg-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="task in tasks">
+                    <td>{{task.id}}</td>
+                    <td>{{task.name}}</td>
+                    <td>{{task.description}}</td>
+                    <td class="text-center">
+                        <div class="btn-group">
+                            <a ng-href="#!/task/{{task.id}}"><button type="button" class="btn btn-warning">Edit</button></a>
+                            <a><button type="button" class="btn btn-danger" ng-click="deleteTask(task.ID)">Delete</button></a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
