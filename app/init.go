@@ -17,6 +17,11 @@ var (
 func initializeDB() {
 	gorm.InitDB()
 	gorm.DB.AutoMigrate(&models.Task{})
+	gorm.DB.AutoMigrate(&models.Label{})
+	gorm.DB.Table("task_labels").AddForeignKey(
+		"label_id", "labels(id)", "RESTRICT", "RESTRICT")
+	gorm.DB.Table("task_labels").AddForeignKey(
+		"task_id", "tasks(id)", "RESTRICT", "RESTRICT")
 }
 
 func init() {
