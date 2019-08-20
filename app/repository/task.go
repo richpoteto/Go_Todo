@@ -45,11 +45,11 @@ func (t Task) Retrieve(id uint) (task models.Task, err error) {
 
 func (t Task) Update(task models.Task) (models.Task, error) {
 	t.tx.Model(&task).Association("Labels").Replace(task.Labels)
-	tannedDb := t.tx.Set("gorm:save_associations", true)
-	tannedDb = tannedDb.Set("gorm:association_save_reference", true)
-	tannedDb = tannedDb.Set("gorm:association_autoupdate", false)
-	tannedDb = tannedDb.Set("gorm:association_autocreate", false)
-	if res := tannedDb.Save(&task); len(res.GetErrors()) != 0 {
+	tunedDb := t.tx.Set("gorm:save_associations", true)
+	tunedDb = tunedDb.Set("gorm:association_save_reference", true)
+	tunedDb = tunedDb.Set("gorm:association_autoupdate", false)
+	tunedDb = tunedDb.Set("gorm:association_autocreate", false)
+	if res := tunedDb.Save(&task); len(res.GetErrors()) != 0 {
 		// TODO(denisacostaq@gmail.com): add logging
 		// log.Panic("Error updating task with id %u: ", c.ID, res)
 		return models.Task{}, errors.New("error updating Task")
