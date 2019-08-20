@@ -11,4 +11,5 @@ type Task struct {
 	Description string
 	DueDate time.Time
 	Labels []Label `gorm:"many2many:task_labels"`
+	Priority float32 `gorm:"-"` // do not persist this field
 }

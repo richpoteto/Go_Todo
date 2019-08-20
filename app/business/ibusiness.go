@@ -20,4 +20,5 @@ type ITaskBusiness interface {
 	Retrieve(id uint) (task models.Task, err error)
 	Update() (models.Task, error)
 	Delete(id uint) error
+	Priority() (uint, error)
 }

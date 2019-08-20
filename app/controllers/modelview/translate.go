@@ -11,6 +11,7 @@ type LabelVm struct {
 	Name string `json:"name"`
 	Description string `json:"description"`
 	Color string `json:"color"`
+	Priority uint `json:"priority"`
 }
 
 type TaskVm struct {
@@ -19,6 +20,7 @@ type TaskVm struct {
 	Description string `json:"description"`
 	DueDate time.Time `json:"due_date"`
 	Labels []LabelVm `json:"labels"`
+	Priority float32 `json:"priority"`
 }
 
 func FromDbLabel(label models.Label) LabelVm {
@@ -27,6 +29,7 @@ func FromDbLabel(label models.Label) LabelVm {
 		Name: label.Name,
 		Description: label.Description,
 		Color: label.Color,
+		Priority: label.Priority,
 	}
 }
 
@@ -45,6 +48,7 @@ func FromDbTask(task models.Task) TaskVm {
 		Description: task.Description,
 		DueDate: task.DueDate,
 		Labels: FromDbLabels(task.Labels),
+		Priority: task.Priority,
 	}
 }
 
@@ -67,6 +71,7 @@ func FromVmLabel(vm LabelVm, lr repository.ILabelRepository) (models.Label, erro
 	l.Name = vm.Name
 	l.Description = vm.Description
 	l.Color = vm.Color
+	l.Priority = vm.Priority
 	return l, nil
 }
 
