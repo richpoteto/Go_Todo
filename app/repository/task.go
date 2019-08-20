@@ -16,7 +16,7 @@ func NewTask(tx *gorm.DB) ITaskRepository {
 }
 
 func (t Task) List() (tasks []models.Task, err error) {
-	if res := t.tx.Find(&tasks); len(res.GetErrors()) != 0 {
+	if res := t.tx.Preload("Labels").Find(&tasks); len(res.GetErrors()) != 0 {
 		// TODO(denisacostaq@gmail.com): add logging
 		//	log.Panic("Error retrieving from database: ", res)
 		return tasks, errors.New("error retrieving from database")
