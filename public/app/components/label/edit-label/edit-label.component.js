@@ -13,7 +13,6 @@ angular.module('editLabel').component('editLabel', {
                 }, function (resp) {
                     toaster.pop('error', resp.data.title, resp.data.description);
                     console.error('response', JSON.stringify(resp));
-                    $location.path('/labels');
                 });
             };
             labelResource.get({labelId: $routeParams.labelId}).$promise.then(function (label) {
@@ -35,7 +34,6 @@ angular.module('editLabel').component('editLabel', {
                 }, function (resp) {
                     toaster.pop('error', resp.data.title, resp.data.description);
                     console.error('response', JSON.stringify(resp));
-                    $location.path('/labels');
                 });
             };
         }

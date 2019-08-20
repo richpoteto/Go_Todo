@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/denisacostaq/todolist-go/app/models"
 	"github.com/denisacostaq/todolist-go/app/repository"
+	"time"
 )
 
 type Task struct {
@@ -18,6 +19,9 @@ func NewTask(tr repository.ITaskRepository, tm models.Task) *Task {
 func (t Task) Validate() error {
 	if len(t.tm.Name) == 0 {
 		return errors.New("name is required in Task")
+	}
+	if time.Now().After(t.tm.DueDate) {
+		return errors.New("you can not refer to the pass in the due date")
 	}
 	return nil
 }

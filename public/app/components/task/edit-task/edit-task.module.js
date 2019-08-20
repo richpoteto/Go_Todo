@@ -1,1 +1,1 @@
-angular.module('editTask', ['ngResource', 'toaster', 'labelsSelector']);
+angular.module('editTask', ['ngResource', 'toaster', 'labelsSelector', 'ui.bootstrap.datetimepicker']);

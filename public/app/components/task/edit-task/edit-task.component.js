@@ -13,7 +13,6 @@ angular.module('editTask').component('editTask', {
                 }, function (resp) {
                     toaster.pop('error', resp.data.title, resp.data.description);
                     console.error('response', JSON.stringify(resp));
-                    $location.path('/tasks');
                 });
             };
             taskResource.get({taskId: $routeParams.taskId}).$promise.then(function (task) {
@@ -43,7 +42,6 @@ angular.module('editTask').component('editTask', {
                 }, function (resp) {
                     toaster.pop('error', resp.data.title, resp.data.description);
                     console.error('response', JSON.stringify(resp));
-                    $location.path('/tasks');
                 });
             };
         }
