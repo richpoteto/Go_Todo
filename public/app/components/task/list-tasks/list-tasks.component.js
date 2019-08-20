@@ -1,8 +1,9 @@
 angular.module('listTasks').component('listTasks', {
    templateUrl: 'components/task/list-tasks/list-tasks.tmpl.html',
     scope: {},
-    controller: function($scope, toaster, taskResource) {
-        let loadData = function() {
+    controller: function($scope, toaster, taskResource, labelResource) {
+        $scope.labels = [];
+        let loadTasks = function() {
             $scope.tasks = taskResource.query();
             $scope.tasks.$promise.then(function () {
                 toaster.pop('info', 'Success', 'Tasks loaded');
@@ -14,12 +15,24 @@ angular.module('listTasks').component('listTasks', {
         $scope.deleteTask = function(id) {
             taskResource.delete({taskId: id}, function () {
                 toaster.pop('info', 'Success', 'Task deleted');
-                loadData();
+                loadTasks();
             }, function (response) {
                 toaster.pop('error', response.data.title, response.data.description);
                 console.log(JSON.stringify(response));
             });
         };
-        loadData();
+        $scope.filterByLabels = function(task) {
+            if ($scope.labels.length === 0) {
+                return true;
+            }
+            if (task.labels === undefined || task.labels === null || task.labels.length === 0) {
+                return false;
+            }
+            let inters = task.labels.filter(label => -1 !== $scope.labels.map(function (e) {
+                return e.id;
+            }).indexOf(label.id));
+            return inters !== null && inters.length > 0;
+        };
+        loadTasks();
     }
 });

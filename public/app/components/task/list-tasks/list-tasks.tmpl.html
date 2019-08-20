@@ -1,5 +1,9 @@
 <div class="row">
     <div class="container">
+        <div class="col-md-4">
+            <label for="labels-selector">Filter:</label>
+            <labels-selector selected-labels="labels"></labels-selector>
+        </div>
         <div class="col-md-12 text-right">
             <div class="button-container">
                 <a ng-href="#!/task"><button class="btn btn-success btn-sm" ng-click="">New</button></a>
@@ -16,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="task in tasks">
+                <tr ng-repeat="task in tasks | filter:filterByLabels">
                     <td>{{task.id}}</td>
                     <td>{{task.name}}</td>
                     <td>{{task.description}}</td>
