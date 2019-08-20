@@ -7,7 +7,6 @@ angular.module('editTask').component('editTask', {
         $scope.task = {labels: []};
         if ($scope.editing) {
             $scope.save = function () {
-                console.log('$scope.task', JSON.stringify($scope.task));
                 taskResource.update({taskId: $routeParams.taskId}, $scope.task).$promise.then(function () {
                     toaster.pop('info', 'Success', 'Task saved');
                     $location.path('/tasks');
