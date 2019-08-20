@@ -2,7 +2,6 @@ package repository
 
 import (
 	"errors"
-	"github.com/davecgh/go-spew/spew"
 	"github.com/denisacostaq/todolist-go/app/models"
 	"github.com/jinzhu/gorm"
 )
@@ -25,8 +24,8 @@ func (t Task) List() (tasks []models.Task, err error) {
 }
 
 func (t Task) Create(task models.Task) (models.Task, error) {
-	spew.Dump("tasksss", task)
-	if res := t.tx.Create(&task); len(res.GetErrors()) != 0 {
+	tunedDb := t.getALazyOrm()
+	if res := tunedDb.Create(&task); len(res.GetErrors()) != 0 {
 		// TODO(denisacostaq@gmail.com): add logging
 		//log.Panic("Error creating in database: ", res)
 		return task, errors.New("error creating in database")
@@ -45,10 +44,7 @@ func (t Task) Retrieve(id uint) (task models.Task, err error) {
 
 func (t Task) Update(task models.Task) (models.Task, error) {
 	t.tx.Model(&task).Association("Labels").Replace(task.Labels)
-	tunedDb := t.tx.Set("gorm:save_associations", true)
-	tunedDb = tunedDb.Set("gorm:association_save_reference", true)
-	tunedDb = tunedDb.Set("gorm:association_autoupdate", false)
-	tunedDb = tunedDb.Set("gorm:association_autocreate", false)
+	tunedDb := t.getALazyOrm()
 	if res := tunedDb.Save(&task); len(res.GetErrors()) != 0 {
 		// TODO(denisacostaq@gmail.com): add logging
 		// log.Panic("Error updating task with id %u: ", c.ID, res)
@@ -65,4 +61,13 @@ func (t Task) Delete(id uint) error {
 		return errors.New("error deleting Task")
 	}
 	return nil
+}
+
+// getALazyOrm this get a tuned orm that not make updates on the references values
+func (t Task) getALazyOrm() *gorm.DB {
+	tunedDb := t.tx.Set("gorm:save_associations", true)
+	tunedDb = tunedDb.Set("gorm:association_save_reference", true)
+	tunedDb = tunedDb.Set("gorm:association_autoupdate", false)
+	tunedDb = tunedDb.Set("gorm:association_autocreate", false)
+	return tunedDb
 }
