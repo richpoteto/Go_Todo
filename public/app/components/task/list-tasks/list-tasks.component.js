@@ -34,5 +34,20 @@ angular.module('listTasks').component('listTasks', {
             return inters !== null && inters.length > 0;
         };
         loadTasks();
+        $scope.order = {};
+        $scope.selectedOrder = {};
+        $scope.availableOrderBy = [
+            {id: '-priority', label: 'Priority'},
+            {id: 'due_date', label: 'Due date'},
+        ];
+        $scope.selectedOrderChanged = function () {
+            $scope.order = $scope.selectedOrder.id;
+        };
+        $scope.clearSortFilter = function() {
+            $scope.order = 'id';
+        };
+        $scope.orderBySettings = {
+            selectionLimit: 1,
+        };
     }
 });

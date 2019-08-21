@@ -1,29 +1,37 @@
 <div class="row">
     <div class="container">
-        <div class="col-md-4">
-            <label for="labels-selector">Filter:</label>
-            <labels-selector selected-labels="labels"></labels-selector>
-        </div>
-        <div class="col-md-12 text-right">
-            <div class="button-container">
-                <a ng-href="#!/task"><button class="btn btn-success btn-sm" ng-click="">New</button></a>
+        <h3>Tasks</h3>
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label for="labels-selector">Filter by label:</label>
+                <labels-selector selected-labels="labels"></labels-selector>
+            </div>
+            <div class="col-md-4">
+                <label for="order-by-selector">Order by:</label>
+                <div ng-dropdown-multiselect="" options="availableOrderBy" selected-model="selectedOrder" extra-settings="orderBySettings" events="{onItemSelect: selectedOrderChanged, onItemDeselect: selectedOrderChanged, onDeselectAll: clearSortFilter}"></div>
+            </div>
+            <div class="col-md-4 text-right">
+                <div class="button-container">
+                    <a ng-href="#!/task"><button class="btn btn-success btn-sm" ng-click="">New</button></a>
+                </div>
             </div>
         </div>
-        <h3>Basic Table</h3>
         <table class="table">
             <thead>
                 <tr>
                     <th class="col-lg-2">ID</th>
                     <th class="col-lg-3">Name</th>
-                    <th class="col-lg-5">Description</th>
+                    <th class="col-lg-4">Description</th>
+                    <th class="col-lg-1">Priority</th>
                     <th class="col-lg-2">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="task in tasks | filter:filterByLabels">
+                <tr ng-repeat="task in tasks | filter:filterByLabels | orderBy: order">
                     <td>{{task.id}}</td>
                     <td>{{task.name}}</td>
-                    <td>{{task.description}}</td>
+                    <td>{{task.description | limitTo: 40}}</td>
+                    <td>{{task.priority}}</td>
                     <td class="text-center">
                         <div class="btn-group">
                             <a ng-href="#!/task/{{task.id}}"><button type="button" class="btn btn-warning">Edit</button></a>
