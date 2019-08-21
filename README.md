@@ -14,6 +14,7 @@ go get -v -u github.com/revel/cmd/revel
 cd $GOPATH/src/github.com/denisacostaq/todolist-go/public ; npm i
 revel run github.com/denisacostaq/todolist-go
 ```
+Please make sure that the [db configuration](https://github.com/denisacostaq/todolist-go/blob/b028488afce25f846f9252340586f4477817df57/conf/app.conf#L125-L131) fit your requirements and set [an address](https://github.com/denisacostaq/todolist-go/blob/b028488afce25f846f9252340586f4477817df57/conf/app.conf#L37-L38) if you want to access the application from outside localhost.
 
 ### Go to http://localhost:9000/public/app/index.html#!/tasks and you'll see:
 
