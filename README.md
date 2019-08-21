@@ -5,13 +5,13 @@ A [Go](http://www.golang.org/)/[Revel](https://revel.github.io/manual/index.html
 
 ### Build and run the application:
 ```
-docker run --name todolist -p 9000:9000 -it debian:latest
+docker run --name todolist --network="host" -it debian:latest
 apt update && apt-get install -y wget git gcc npm
 wget -qO- https://dl.google.com/go/go1.12.9.linux-amd64.tar.gz | tar xzf - -C /opt/
 export GOROOT=/opt/go ; export GOPATH=/usr/share/gocode ; export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 go get -v -d github.com/denisacostaq/todolist-go/...
 go get -v -u github.com/revel/cmd/revel
-cd $GOPATH/src/github.com/denisacostaq/todolist-go/public ; npm i
+cd $GOPATH/src/github.com/denisacostaq/todolist-go/public ; npm i ; npm run copy-libs
 revel run github.com/denisacostaq/todolist-go
 ```
 Please make sure that the [db configuration](https://github.com/denisacostaq/todolist-go/blob/b028488afce25f846f9252340586f4477817df57/conf/app.conf#L125-L131) fit your requirements and set [an address](https://github.com/denisacostaq/todolist-go/blob/b028488afce25f846f9252340586f4477817df57/conf/app.conf#L37-L38) if you want to access the application from outside localhost.
