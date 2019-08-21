@@ -6,8 +6,8 @@ import (
 
 type Label struct {
 	gorm.Model
-	Name string
-	Description string
+	Name string `gorm:"type:varchar(64);not null"`
+	Description string `gorm:"size:255"`
 	Color string
-	Priority uint
+	Priority uint `gorm:"not null"`
 }
